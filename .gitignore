@@ -1,0 +1,17 @@
+# Environment variables
+.env
+.env.local
+
+# Binary files
+bin/
+tmp/
+
+# IDE files
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Dependencies
+vendor/

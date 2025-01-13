@@ -10,3 +10,6 @@
 go.work
 .idea/
 .vscode/
+# Ignore Go build artifacts
+bin/
+pkg/
