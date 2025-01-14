@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: food-health-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # If using cert-manager
+spec:
+  rules:
+  - host: food-health.example.com  # Replace with your domain
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: food-health-backend-service
+            port:
+              number: 80
+  tls:  # Optional: for HTTPS
+  - hosts:
+    - food-health.example.com
+    secretName: food-health-tls 
