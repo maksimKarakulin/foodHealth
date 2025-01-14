@@ -2,10 +2,30 @@ package handlers
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
+
+// FoodItem represents the food item model
+// @Description Food item information
+type FoodItem struct {
+	ID          string     `json:"id" example:"123e4567-e89b-12d3-a456-426614174000"`
+	CreatedAt   time.Time  `json:"created_at" example:"2024-01-13T17:57:41.915Z"`
+	UpdatedAt   time.Time  `json:"updated_at" example:"2024-01-13T17:57:41.915Z"`
+	DeletedAt   *time.Time `json:"deleted_at,omitempty"`
+	Name        string     `json:"name" example:"Banana"`
+	Description string     `json:"description" example:"Fresh yellow banana"`
+	Category    string     `json:"category" example:"Fruits"`
+	ImageURL    string     `json:"image_url,omitempty" example:"https://example.com/banana.jpg"`
+}
+
+// @title Food Health API
+// @version 1.0
+// @description Food Health Application API
+// @host localhost:8080
+// @BasePath /api
 
 // FoodHandler contains the dependencies for food-related handlers
 type FoodHandler struct {
@@ -19,15 +39,14 @@ func NewFoodHandler(db *gorm.DB) *FoodHandler {
 	}
 }
 
-// FoodItem represents the food item model
-type FoodItem struct {
-	gorm.Model
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Category    string `json:"category"`
-	ImageURL    string `json:"image_url,omitempty"`
-}
-
+// GetFoods godoc
+// @Summary Get all food items
+// @Description Get a list of all food items
+// @Tags foods
+// @Accept json
+// @Produce json
+// @Success 200 {array} FoodItem
+// @Router /foods [get]
 func (h *FoodHandler) GetFoods(c *gin.Context) {
 	var foodItems []FoodItem
 	if err := h.db.Find(&foodItems).Error; err != nil {
@@ -37,6 +56,15 @@ func (h *FoodHandler) GetFoods(c *gin.Context) {
 	c.JSON(http.StatusOK, foodItems)
 }
 
+// CreateFood godoc
+// @Summary Create a new food item
+// @Description Create a new food item with the provided data
+// @Tags foods
+// @Accept json
+// @Produce json
+// @Param food body FoodItem true "Food item to create"
+// @Success 201 {object} FoodItem
+// @Router /foods [post]
 func (h *FoodHandler) CreateFood(c *gin.Context) {
 	var foodItem FoodItem
 	if err := c.ShouldBindJSON(&foodItem); err != nil {

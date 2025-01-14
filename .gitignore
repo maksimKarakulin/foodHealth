@@ -1,10 +1,12 @@
-# Environment variables
+# Environment variables and secrets
 .env
-.env.local
-
-# Binary files
-bin/
-tmp/
+.env.*
+*.secret*
+**/secrets.yaml
+**/credentials/*
+*.pem
+*.key
+*.crt
 
 # IDE files
 .idea/
@@ -15,3 +17,31 @@ tmp/
 
 # Dependencies
 vendor/
+node_modules/
+**/node_modules/
+
+# Build artifacts
+bin/
+dist/
+tmp/
+pkg/
+
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Frontend specific
+dist/
+.next/
+
+# Docker
+docker-compose.override.yml
+
+# Firebase
+**/credentials/*

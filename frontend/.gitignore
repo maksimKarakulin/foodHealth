@@ -1,4 +1,0 @@
-# Ignore Node.js dependencies and build artifacts
-node_modules/
-dist/
-.env

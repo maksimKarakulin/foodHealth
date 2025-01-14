@@ -6,6 +6,12 @@ import (
 	"os"
 	"time"
 
+	_ "food_App/docs" // This is important!
+
+	"food_App/internal/api/router"
+
+	"food_App/internal/config"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin" // Because regular gin wasn't fancy enough
 	"github.com/joho/godotenv" // Keeping everything a secret!
@@ -15,20 +21,23 @@ import (
 	"gorm.io/gorm"                             // Goofy name, serious functionality
 )
 
+// @title Food Health API
+// @version 1.0
+// @description Food Health Application API
+// @host localhost:8080
+// @BasePath /api
 func main() {
 	// Loads environment variables from .env file
 	// AKA "The file developers forget to gitignore until it's too late"
 	if err := godotenv.Load(); err != nil {
-		log.Println("No .env file found - living dangerously, I see...")
+		log.Println("No .env file found")
 	}
 
 	// Initializes the database
 	// Where all your data goes to party
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
-
-		// Ah, the classic "it works on my machine" configuration
-		dsn = "host=localhost user=postgres password=postgres dbname=food_app port=5432 sslmode=disable"
+		log.Fatal("DATABASE_URL environment variable is required")
 	}
 
 	// Attempting to befriend the database
@@ -66,26 +75,33 @@ func main() {
 		MaxAge:           12 * time.Hour, // Cache me if you can
 	}))
 
-	// Initialize handlers
-	// Where the magic happens (and by magic, we mean bugs)
-	foodHandler := handlers.NewFoodHandler(db)
-
-	// API routes
-	// The GPS for your HTTP requests
-	api := r.Group("/api/v1")
-	{
-		api.GET("/food", foodHandler.GetFoods)                              // Buffet line starts here
-		api.POST("/food", foodHandler.CreateFood)                           // Adding to the menu
-		api.GET("/food/:id", foodHandler.GetFood)                           // Finding that one specific nugget
-		api.PUT("/food/:id", foodHandler.UpdateFood)                        // When the recipe needs tweaking
-		api.DELETE("/food/:id", foodHandler.DeleteFood)                     // Gone, reduced to atoms
-		api.GET("/food/search", foodHandler.SearchFoods)                    // For the picky eaters
-		api.GET("/food/category/:category", foodHandler.GetFoodsByCategory) // Food segregation
-	}
-
-	// Swagger documentation endpoint
-	// Because nobody reads the docs anyway
+	// Setup Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	// Initialize handlers with db
+	foodHandler := handlers.NewFoodHandler(db)
+	userHandler := handlers.NewUserHandler(db)
+
+	// Setup API routes
+	api := r.Group("/api")
+	{
+		foods := api.Group("/foods")
+		{
+			foods.GET("", foodHandler.GetFoods)
+			foods.POST("", foodHandler.CreateFood)
+			foods.GET("/:id", foodHandler.GetFood)
+			foods.PUT("/:id", foodHandler.UpdateFood)
+			foods.DELETE("/:id", foodHandler.DeleteFood)
+			foods.GET("/search", foodHandler.SearchFoods)
+			foods.GET("/category/:category", foodHandler.GetFoodsByCategory)
+		}
+
+		users := api.Group("/users")
+		{
+			users.POST("/register", userHandler.RegisterUser)
+			users.POST("/login", userHandler.LoginUser)
+		}
+	}
 
 	// Get port from environment variable or use default
 	// Port 8080, because 80 was too mainstream
@@ -97,7 +113,20 @@ func main() {
 	// Start server
 	// May the ports be ever in your favor
 	log.Printf("Server starting on port %s - Time to grab some popcorn 🍿", port)
-	if err := r.Run(":" + port); err != nil {
+
+	config := &config.Config{
+		Port:        os.Getenv("PORT"),
+		DatabaseURL: os.Getenv("DATABASE_URL"),
+		JWTSecret:   os.Getenv("JWT_SECRET"),
+		Environment: os.Getenv("ENVIRONMENT"),
+	}
+
+	router, err := router.SetupRouter(config, db)
+	if err != nil {
+		log.Fatal("Failed to setup router:", err)
+	}
+
+	if err := router.Run(":" + port); err != nil {
 		log.Fatal("Server crashed and burned:", err) // Time to panic
 	}
 }

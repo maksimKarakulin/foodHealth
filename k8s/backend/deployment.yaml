@@ -19,21 +19,11 @@ spec:
           image: your-registry/food-health-backend:latest
           ports:
             - containerPort: 8080
-          env:
-            - name: DB_HOST
-              value: postgresql-service
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: password
+          envFrom:
+            - secretRef:
+                name: app-secrets
+            - configMapRef:
+                name: app-config
           resources:
             requests:
               memory: "256Mi"
