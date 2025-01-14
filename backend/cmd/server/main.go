@@ -35,9 +35,9 @@ func main() {
 
 	// Initializes the database
 	// Where all your data goes to party
-	dsn := os.Getenv("DATABASE_URL")
+	dsn := os.Getenv("DB_DSN")
 	if dsn == "" {
-		log.Fatal("DATABASE_URL environment variable is required")
+		log.Fatal("DB_DSN environment variable is required")
 	}
 
 	// Attempting to befriend the database

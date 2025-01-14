@@ -6,6 +6,8 @@ interface FoodCardProps {
 }
 
 export default function FoodCard({ food }: FoodCardProps) {
+  
+  console.log(food)
   return (
     <div className="border rounded-lg overflow-hidden shadow-lg">
       <div className="relative h-48">
@@ -30,4 +32,5 @@ export default function FoodCard({ food }: FoodCardProps) {
       </div>
     </div>
   )
+ 
 } 

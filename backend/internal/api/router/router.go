@@ -6,23 +6,30 @@ import (
 	"food_App/internal/api/middleware"
 	"food_App/internal/config"
 
+	"os"
+
 	firebase "firebase.google.com/go/v4"
+	"firebase.google.com/go/v4/auth"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/api/option"
 	"gorm.io/gorm"
 )
 
 func SetupRouter(config *config.Config, db *gorm.DB) (*gin.Engine, error) {
-	// Initialize Firebase Admin
-	opt := option.WithCredentialsFile("path/to/firebase-credentials.json")
-	app, err := firebase.NewApp(context.Background(), nil, opt)
-	if err != nil {
-		return nil, err
-	}
+	var authClient *auth.Client
 
-	authClient, err := app.Auth(context.Background())
-	if err != nil {
-		return nil, err
+	// Skip Firebase initialization if SKIP_FIREBASE_AUTH is true
+	if os.Getenv("SKIP_FIREBASE_AUTH") != "true" {
+		opt := option.WithCredentialsFile("config/firebase-credentials.json")
+		app, err := firebase.NewApp(context.Background(), nil, opt)
+		if err != nil {
+			return nil, err
+		}
+
+		authClient, err = app.Auth(context.Background())
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	// Initialize middleware
