@@ -2,9 +2,9 @@ package router
 
 import (
 	"context"
-	"food_App/internal/api/handlers"
-	"food_App/internal/api/middleware"
-	"food_App/internal/config"
+	"foodHealth/backend/internal/api/handlers"
+	"foodHealth/backend/internal/api/middleware"
+	"foodHealth/backend/internal/config"
 
 	"os"
 

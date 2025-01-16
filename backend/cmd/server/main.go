@@ -1,16 +1,16 @@
 package main
 
 import (
-	"food_App/internal/api/handlers"
+	"foodHealth/backend/internal/api/handlers"
 	"log"
 	"os"
 	"time"
 
-	_ "food_App/docs" // This is important!
+	_ "foodHealth/backend/docs" // This is important!
 
-	"food_App/internal/api/router"
+	"foodHealth/backend/internal/api/router"
 
-	"food_App/internal/config"
+	"foodHealth/backend/internal/config"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin" // Because regular gin wasn't fancy enough

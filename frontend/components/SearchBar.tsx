@@ -1,14 +1,40 @@
 import React, { useState, useCallback } from 'react';
 import debounce from 'lodash/debounce';
+import { FoodItem } from '../types/food'; // Import the correct FoodItem type
 
-export default function SearchBar({ onSearch }: { onSearch: (query: string) => void }) {
+
+interface SearchBarProps {
+  onSearch: (query: string) => Promise<void>;
+  setFoods: React.Dispatch<React.SetStateAction<FoodItem[]>>; // More precise type
+  featuredFoods: FoodItem[];
+  isLoading: boolean;
+}
+
+export default function SearchBar({ onSearch, setFoods, featuredFoods, isLoading }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const debouncedSearch = useCallback(
-    debounce((query: string) => {
-      onSearch(query);
+    debounce(async (query: string) => {
+      if (!query.trim()) {
+        setFoods(featuredFoods);
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/foods/search?q=${encodeURIComponent(query)}`);
+        if (!res.ok) {
+          console.error(`Error fetching search results: ${res.status} ${res.statusText}`);
+        setFoods([]);
+          return;
+      }
+        const searchResults = await res.json();
+        setFoods(searchResults);
+      } catch (error) {
+        console.error("Error during search:", error);
+        setFoods([]);
+      }
     }, 300),
-    []
+    [setFoods, featuredFoods]
   );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +45,7 @@ export default function SearchBar({ onSearch }: { onSearch: (query: string) => v
 
   return (
     <div className="relative w-full max-w-xl mx-auto mb-8">
+      {isLoading && <div>Loading...</div>}
       <input
         type="text"
         value={searchTerm}
@@ -28,4 +55,5 @@ export default function SearchBar({ onSearch }: { onSearch: (query: string) => v
       />
     </div>
   );
-} 
+  }
+

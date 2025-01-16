@@ -17,4 +17,4 @@ export interface FoodItem {
   allergens: string[];
   createdAt: string;
   updatedAt: string;
-} 
+}
