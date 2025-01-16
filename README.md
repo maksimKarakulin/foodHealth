@@ -1,6 +1,6 @@
 # Food Health Web App
 
-A modern, scalable content management system built with Next.js, Golang, and Kubernetes. This project demonstrates enterprise-level architecture with microservices, containerization, and automated deployment pipelines.
+A modern, scalable content management system built with Next.js,TypeScript, Golang, and Kubernetes. This project demonstrates enterprise-level architecture with microservices, containerization, and automated deployment pipelines.
 
 ## 🚀 Features
 
