@@ -12,6 +12,8 @@ import (
 
 	"foodHealth/backend/internal/config"
 
+	"foodHealth/backend/internal/api/middleware"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin" // Because regular gin wasn't fancy enough
 	"github.com/joho/godotenv" // Keeping everything a secret!
@@ -77,6 +79,8 @@ func main() {
 
 	// Setup Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	r.Use(middleware.ErrorHandler())
 
 	// Initialize handlers with db
 	foodHandler := handlers.NewFoodHandler(db)
