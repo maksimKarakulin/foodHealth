@@ -33,7 +33,6 @@ func (h *UserHandler) RegisterUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	// Add registration logic here
 	c.JSON(http.StatusCreated, gin.H{"message": "User registered successfully"})
 }
 
@@ -46,21 +45,19 @@ func (h *UserHandler) LoginUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	// Add login logic here
-	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
+=	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 }
 
+
+//need to do all of these...
 func (h *UserHandler) GetUserProfile(c *gin.Context) {
-	// Implementation
-	c.JSON(http.StatusOK, gin.H{"message": "GetUserProfile"})
+=	c.JSON(http.StatusOK, gin.H{"message": "GetUserProfile"})
 }
 
 func (h *UserHandler) UpdatePreferences(c *gin.Context) {
-	// Implementation
 	c.JSON(http.StatusOK, gin.H{"message": "UpdatePreferences"})
 }
 
 func (h *UserHandler) GetFavoriteFoods(c *gin.Context) {
-	// Implementation
 	c.JSON(http.StatusOK, gin.H{"message": "GetFavoriteFoods"})
 }

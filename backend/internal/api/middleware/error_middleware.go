@@ -27,7 +27,7 @@ func ErrorHandler() gin.HandlerFunc {
 			// Log the error using Gin's error logging.  This is crucial!
 			c.Error(err.Err)
 
-			// Determine HTTP status code.  Handle nil err.Err gracefully.
+			// Determine HTTP status code. 
 			statusCode := http.StatusInternalServerError
 			if err.Err != nil {
 				switch {
@@ -35,18 +35,17 @@ func ErrorHandler() gin.HandlerFunc {
 					statusCode = http.StatusBadRequest
 				case errors.IsNotFound(err.Err):
 					statusCode = http.StatusNotFound
-				// Add more cases as needed for other error types
-				default:
+\				default:
 					//If none of the cases matched, still use a meaningful status code.
 					statusCode = http.StatusInternalServerError
 
 				}
 			} else {
-				statusCode = http.StatusInternalServerError // Handle the case where err.Err is nil
+				statusCode = http.StatusInternalServerError
 			}
 
 			c.JSON(statusCode, gin.H{
-				"error":   err.Err, //Use err.Err directly; it will be properly stringified.
+				"error":   err.Err,
 				"success": false,
 			})
 			return

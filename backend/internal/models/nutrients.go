@@ -36,7 +36,7 @@ type BaseNutrient struct {
 	IsEssential            bool         `json:"is_essential"`
 	UpperLimit             float64      `json:"upper_limit"`
 	RecommendedDailyIntake float64      `json:"recommended_daily_intake"`
-	CommonSources          []string     `json:"common_sources" gorm:"type:text[]"` // Use text[] for array storage in postgres
+	CommonSources          []string     `json:"common_sources" gorm:"type:text[]"`
 	FoodID                 uint         `json:"food_id"`
 	Food                   Food         `json:"food" gorm:"foreignKey:FoodID"`
 }
@@ -72,12 +72,10 @@ type WaterNutrient struct {
 	BaseNutrient
 }
 
-// Example of how to use validation:
 func CreateNutrient(nutrientData BaseNutrient) (*BaseNutrient, error) {
 	if err := nutrientData.Validate(); err != nil {
 		return nil, fmt.Errorf("validation failed: %w", err)
 	}
-	// Add the nutrient to the database.
-	// ... database interaction code ...
+	//need to finish this.
 	return &nutrientData, nil
 }

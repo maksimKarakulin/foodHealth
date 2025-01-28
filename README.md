@@ -4,14 +4,30 @@ A modern, scalable content management system built with Next.js,TypeScript, Gola
 
 ## 🚀 Features
 
-- **Modern Frontend**: Built with Next.js and React
-- **Robust Backend**: Golang API with clean architecture
-- **Security**: Firebase Authentication integration
-- **Database**: PostgreSQL with GORM
-- **Infrastructure**: Kubernetes orchestration across multiple VPS instances
-- **CI/CD**: Automated pipelines using GitHub Actions
-- **Scalability**: Containerized with Docker
-- **Monitoring**: Logging and performance tracking
+### Frontend
+- **Food Search & Discovery**: Advanced search functionality for finding foods
+- **Meal Planning**: Interactive meal planning interface
+- **User Profiles**: Personalized dietary preferences and restrictions
+- **Responsive UI**: Modern interface with reusable components
+- **Real-time Updates**: Dynamic content updates using React
+- **Type Safety**: Full TypeScript implementation
+
+### Backend
+- **RESTful API**: Well-structured Go backend with clean architecture
+- **Swagger Documentation**: API documentation with OpenAPI/Swagger
+- **Authentication**: Firebase integration for secure user management
+- **Error Handling**: Comprehensive error management system
+- **CORS Support**: Configured cross-origin resource sharing
+- **Database**: PostgreSQL with GORM for data persistence
+
+### DevOps
+- **Containerization**: Docker support for consistent environments
+- **Kubernetes Orchestration**: Complete K8s configuration including:
+  - Horizontal Pod Autoscaling (HPA)
+  - Persistent Volume management
+  - ConfigMaps and Secrets
+  - Network Policies
+- **High Availability**: Multiple replicas and load balancing
 
 ## 🏗 Architecture
 
@@ -100,13 +116,26 @@ docker build -t yourusername/frontend:latest ./frontend
 kubectl apply -f k8s/
 ```
 
+## API Documentation
+Access Swagger documentation at http://localhost:8080/swagger/index.html
+
+Key Endpoints:
+
+GET /api/foods: List all food items
+POST /api/foods: Create new food item
+GET /api/nutrients/{id}: Get nutrient information
+GET /api/users/profile: Get user profile
+PUT /api/users/preferences: Update user preferences
+
+
 ## 🛡️ Security
 
 - Firebase Authentication
 - Rate limiting
 - CORS protection
+- Error handling middleware
 - Encrypted data in transit and at rest
-- Regular security audits
+- Kubernetes network policies
 
 ## 📚 API Documentation
 
@@ -153,7 +182,3 @@ Project Link: [https://github.com/maksimKarakulin/foodHealth](https://github.com
 
 ## 🙏 Acknowledgments
 
-to do: 
-- List any resources, libraries, or tools you used
-- Credit any inspirations
-- Link to relevant documentation
