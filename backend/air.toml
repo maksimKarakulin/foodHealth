@@ -1,0 +1,40 @@
+# air.toml
+
+[build]
+  bin = "./tmp/main"          # Binary path
+  cmd = "go build -o ./tmp/main ./cmd/server/main.go" # Command to build
+  delay = 1000               # Delay before rebuild (ms)
+  exclude_dir = ["tmp", "vendor", "frontend", "migrations", "docs", ".git"] # Exclude directories
+  exclude_file = []          # Exclude files
+  exclude_regex = ["_test.go", "docs"] # Exclude regex patterns
+  follow_symlink = true      # Follow symlinks
+  full_bin = ""              # Full binary arguments
+  include_dir = []           # Include directories
+  include_ext = ["go", "tpl", "tmpl", "html", "sql"] # Include extensions
+  include_file = []          # Include files
+  kill_delay = 0             # Delay before killing process (ms)
+  log_prefix = "air"         # Log prefix
+  poll = false               # Poll for changes instead of fsnotify
+  poll_interval = 500        # Polling interval (ms)
+  post_cmd = []              # Post build commands
+  pre_cmd = []               # Pre build commands
+  rerun = false              # Rerun main binary
+  run_binary = false         # Run main binary directly
+  signal = "SIGTERM"         # Signal to send to the process
+  stamp = false              # Stamp build
+  static = false             # Watch static files
+  stop_on_error = true       # Stop build on error
+  sync_binary = false        # Sync binary
+
+[log]
+  clear_on_restart = true    # Clear log on restart
+  colors = true              # Use colors in log
+  depth = 0                  # Log depth
+  enabled = true             # Enable log
+  prefix = "air"             # Log prefix
+  short_timestamp = true     # Short timestamp format
+  static_color = "cyan"      # Static color for prefix
+  timestamp = "2006-01-02 15:04:05" # Timestamp format
+
+[misc]
+  clean_on_exit = true       # Clean temporary files on exit

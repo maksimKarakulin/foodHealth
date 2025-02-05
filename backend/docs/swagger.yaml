@@ -1,0 +1,75 @@
+basePath: /api
+definitions:
+  handlers.FoodItem:
+    description: Food item information
+    properties:
+      category:
+        example: Fruits
+        type: string
+      created_at:
+        example: "2024-01-13T17:57:41.915Z"
+        type: string
+      deleted_at:
+        type: string
+      description:
+        example: Fresh yellow banana
+        type: string
+      id:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      image_url:
+        example: https://example.com/banana.jpg
+        type: string
+      name:
+        example: Banana
+        type: string
+      updated_at:
+        example: "2024-01-13T17:57:41.915Z"
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Food Health Application API
+  title: Food Health API
+  version: "1.0"
+paths:
+  /foods:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all food items
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/handlers.FoodItem'
+            type: array
+      summary: Get all food items
+      tags:
+      - foods
+    post:
+      consumes:
+      - application/json
+      description: Create a new food item with the provided data
+      parameters:
+      - description: Food item to create
+        in: body
+        name: food
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.FoodItem'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.FoodItem'
+      summary: Create a new food item
+      tags:
+      - foods
+swagger: "2.0"

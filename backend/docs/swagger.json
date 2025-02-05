@@ -1,0 +1,110 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Food Health Application API",
+        "title": "Food Health API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/foods": {
+            "get": {
+                "description": "Get a list of all food items",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "foods"
+                ],
+                "summary": "Get all food items",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.FoodItem"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new food item with the provided data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "foods"
+                ],
+                "summary": "Create a new food item",
+                "parameters": [
+                    {
+                        "description": "Food item to create",
+                        "name": "food",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.FoodItem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.FoodItem"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.FoodItem": {
+            "description": "Food item information",
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string",
+                    "example": "Fruits"
+                },
+                "created_at": {
+                    "type": "string",
+                    "example": "2024-01-13T17:57:41.915Z"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Fresh yellow banana"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "image_url": {
+                    "type": "string",
+                    "example": "https://example.com/banana.jpg"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Banana"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "2024-01-13T17:57:41.915Z"
+                }
+            }
+        }
+    }
+}
