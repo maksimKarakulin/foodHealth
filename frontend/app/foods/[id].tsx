@@ -1,11 +1,11 @@
 'use client';
 
-import { useFoodDetails } from '@/lib/api';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useFoodDetails } from 'src/lib/api';
+import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card';
 import { useParams } from 'next/navigation';
-import { Alert, AlertDescription } from '@/components/ui/Alert';
+import { Alert, AlertDescription } from 'src/components/ui/Alert';
 import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from 'src/components/ui/badge';
 
 const FoodDetailsPage = () => {
   const params = useParams();

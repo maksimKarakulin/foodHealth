@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createFood } from '@/lib/api';
-import { FoodItem as FoodItemType, Nutrition } from '@/types/food';
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/Alert"
-import { Loader2 } from "lucide-react"
+import { createFood } from 'src/lib/api';
+import { FoodItem as FoodItemType, Nutrition } from 'src/types/food';
+import { Input } from 'src/components/ui/input'
+import { Label } from 'src/components/ui/label'
+import { Textarea } from 'src/components/ui/textarea'
+import { Button } from 'src/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
+import { Alert, AlertDescription } from 'src/components/ui/Alert'
+import { Loader2 } from 'lucide-react'
 
 interface FormData extends Omit<FoodItemType, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'> {
   allergens: string[];

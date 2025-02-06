@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert"
+import { Alert, AlertDescription, AlertTitle } from 'src/components/ui/Alert'
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;

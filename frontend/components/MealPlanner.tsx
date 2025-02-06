@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FoodItem } from '../types/food';
-import { Calendar } from "@/components/ui/calendar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Calendar } from 'src/components/ui/calendar'
+import { Button } from 'src/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 
 
 interface Meal {

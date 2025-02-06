@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { FoodItem } from '@/types/food';
+import { FoodItem } from 'src/types/food';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
 

@@ -1,16 +1,17 @@
 'use client'
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/Alert"
-import SearchBar from '@/components/SearchBar';
-import FoodCard from '@/components/FoodCard';
-import { FoodItem } from '@/types/food';
-import { useAuth } from '@/contexts/AuthContext';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useFeaturedFoods, useSearchFoods } from '@/lib/api';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from 'src/components/ui/card'
+import { Alert, AlertDescription } from 'src/components/ui/Alert'
+import SearchBar from 'src/components/SearchBar';
+import FoodCard from 'src/components/FoodCard';
+import { FoodItem } from 'src/types/food';
+import { useAuth } from 'src/contexts/AuthContext';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs';
+import { useFeaturedFoods, useSearchFoods } from 'src/lib/api';
+import CreateFoodPage from 'src/components/CreateFoodPages';
+import MealPlanner from 'src/components/MealPlanner';
+import { Button } from 'src/components/ui/button';
 
 export default function Home() {
   const { data: featuredFoods, error: fetchError, isLoading: isFetching } = useFeaturedFoods();
@@ -77,11 +78,12 @@ export default function Home() {
         </CardHeader>
         <CardContent className="grid gap-4">
           <Tabs defaultValue="foods" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="foods">Foods</TabsTrigger>
-              <TabsTrigger value="nutrients">Nutrients</TabsTrigger>
-              <TabsTrigger value="meals">Meal Plans</TabsTrigger>
-              <TabsTrigger value="recipes">Recipes</TabsTrigger>
+              <TabsTrigger value="create">Create</TabsTrigger>
+              <TabsTrigger value="about">About</TabsTrigger>
+              <TabsTrigger value="info">Info</TabsTrigger>
+              <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
             <TabsContent value="foods">
               <div className="mb-4 flex justify-between items-center">
@@ -91,11 +93,6 @@ export default function Home() {
                   setFoods={setFoods}
                   featuredFoods={featuredFoods || []}
                 />
-                 <Link href="/foods/create">
-                    <Button variant="primary">
-                      Create Food
-                    </Button>
-                  </Link>
               </div>
 
 
@@ -158,60 +155,73 @@ export default function Home() {
               )}
             </TabsContent>
 
-            <TabsContent value="nutrients">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="p-6">
-                  <CardHeader>
-                    <CardTitle>Macronutrients</CardTitle>
-                    <CardDescription>Essential nutrients for energy and body function.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="list-disc pl-5">
-                      <li>Proteins</li>
-                      <li>Carbohydrates</li>
-                      <li>Fats</li>
-                      <li>Fiber</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-
-                <Card className="p-6">
-                  <CardHeader>
-                    <CardTitle>Micronutrients</CardTitle>
-                    <CardDescription>Vitamins and minerals for overall health.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="list-disc pl-5">
-                      <li>Vitamins</li>
-                      <li>Minerals</li>
-                      <li>Antioxidants</li>
-                      <li>Phytonutrients</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
+            <TabsContent value="create">
+              <CreateFoodPage />
             </TabsContent>
 
-            <TabsContent value="meals">
+            <TabsContent value="about">
               <Card className="p-6">
                 <CardHeader>
-                  <CardTitle>Meal Plans</CardTitle>
-                  <CardDescription>Curated meal plans for your dietary needs.</CardDescription>
+                  <CardTitle>About</CardTitle>
+                  <CardDescription>Learn about our app.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p>Our meal planning feature is currently under development.</p>
+                  <p>Welcome to the Food Health App! This application is designed to help you explore a wide variety of foods and understand their nutritional content and health benefits.</p>
+                  <p><b>Key Features:</b></p>
+                  <ul className="list-disc pl-5">
+                    <li><b>Extensive Food Database:</b> Search and discover detailed information on thousands of food items.</li>
+                    <li><b>Nutritional Information:</b> Get comprehensive nutritional facts, including calories, macronutrients, and micronutrients.</li>
+                    <li><b>Create Food Items:</b> Add new food items to our database to expand our knowledge base.</li>
+                    <li><b>Meal Planning Tools:</b> (Coming Soon) Plan your daily or weekly meals to meet your dietary goals.</li>
+                  </ul>
+                  <p>Our mission is to empower you to make informed food choices for a healthier lifestyle. Explore, learn, and enjoy the journey to better health with Food Health App!</p>
+                  <MealPlanner />
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="recipes">
+            <TabsContent value="info">
               <Card className="p-6">
                 <CardHeader>
-                  <CardTitle>Recipes</CardTitle>
-                  <CardDescription>Delicious and healthy recipes.</CardDescription>
+                  <CardTitle>Info</CardTitle>
+                  <CardDescription>Useful information about nutrition.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p>Our recipe collection is currently under development.</p>
+                  <p><b>Understanding Nutrition:</b></p>
+                  <p>Nutrition is the study of nutrients in food, how the body uses them, and the relationship between diet, health, and disease. Good nutrition is fundamental to health and well-being.</p>
+                  <p><b>Key Nutritional Components:</b></p>
+                  <ul className="list-disc pl-5">
+                    <li><b>Macronutrients:</b> Carbohydrates, fats, and proteins are essential for energy and various bodily functions.</li>
+                    <li><b>Micronutrients:</b> Vitamins and minerals are vital for development, disease prevention, and wellbeing.</li>
+                    <li><b>Water:</b> Essential for hydration, nutrient transport, and body temperature regulation.</li>
+                    <li><b>Fiber:</b> Important for digestive health, blood sugar control, and cholesterol management.</li>
+                  </ul>
+                  <p>For personalized dietary advice, always consult with a healthcare professional or a registered dietitian.</p>
+                  <Button variant="secondary" onClick={() => window.open('https://www.who.int/news-room/fact-sheets/detail/healthy-diet', '_blank')}>
+                    Learn More from WHO
+                  </Button>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="signup">
+              <Card className="p-6">
+                <CardHeader>
+                  <CardTitle>Sign Up</CardTitle>
+                  <CardDescription>Sign up for our service.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p><b>Sign Up for Enhanced Features!</b></p>
+                  <p>By signing up, you'll unlock additional features to personalize your experience and get even more out of the Food Health App:</p>
+                  <ul className="list-disc pl-5">
+                    <li><b>Personalized Recommendations:</b> Receive food suggestions tailored to your dietary preferences and health goals.</li>
+                    <li><b>Meal Planning:</b> Utilize our advanced meal planner to create and save custom meal plans.</li>
+                    <li><b>Favorite Foods:</b> Keep track of your favorite food items for quick access and meal planning.</li>
+                    <li><b>Progress Tracking:</b> Monitor your nutritional intake and health progress over time.</li>
+                  </ul>
+                  <p>Stay tuned! Sign-up functionality is coming soon. Enter your email below to be notified when registration opens:</p>
+                  <input type="email" placeholder="Your Email Address" className="mt-4 p-2 border rounded w-full max-w-sm" />
+                  <Button variant="primary" className="mt-2">Notify Me</Button>
                 </CardContent>
               </Card>
             </TabsContent>

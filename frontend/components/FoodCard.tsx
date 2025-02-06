@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 import { FoodItem } from '../types/food'
-import { Button } from "@/components/ui/button"
-import { deleteFood as deleteFoodAPI } from '@/lib/api';
+import { Button } from 'src/components/ui/button'
+import { deleteFood as deleteFoodAPI } from 'src/lib/api';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Alert, AlertDescription } from "@/components/ui/Alert";
-import { Loader2 } from "lucide-react"
+import { Alert, AlertDescription } from 'src/components/ui/Alert';
+import { Loader2 } from 'lucide-react'
 
 interface FoodCardProps {
   food: FoodItem;

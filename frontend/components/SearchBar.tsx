@@ -3,9 +3,9 @@
 import React, { useState, useCallback } from 'react'
 import { Command } from 'cmdk'
 import { SearchIcon, X } from 'lucide-react'
-import { Input } from "@/components/ui/input"
-import { cn } from '@/lib/utils'
-import { FoodItem } from '@/types/food'
+import { Input } from 'src/components/ui/input'
+import { cn } from 'src/lib/utils'
+import { FoodItem } from 'src/types/food'
 
 interface SearchBarProps {
   onSearch: (query: string) => Promise<void>
